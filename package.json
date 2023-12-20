@@ -11,8 +11,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^18.4.2",
-    "@commitlint/config-conventional": "^18.4.2",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@finley_ge/eslint-config-vue": "^0.1.0",
+    "eslint": "^8.55.0",
     "husky": "^8.0.3"
   }
 }
