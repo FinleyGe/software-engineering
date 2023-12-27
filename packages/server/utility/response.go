@@ -42,3 +42,7 @@ func ResponseForbidden(c *gin.Context) {
 func ResponseServerError(c *gin.Context) {
 	Response(c, http.StatusInternalServerError, "Server Error", nil)
 }
+
+func ResponseNotFound(c *gin.Context) {
+	Response(c, http.StatusNotFound, "Not Found", nil)
+}

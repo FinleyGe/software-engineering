@@ -6,7 +6,7 @@ import (
 
 type Department struct {
 	ID   uint64 `gorm:"primary_key"`
-	Name string
+	Name string `gorm:"not null,unique"`
 }
 
 func (department *Department) Add() bool {

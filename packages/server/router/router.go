@@ -18,5 +18,8 @@ func init() {
 	{
 		admin.POST("/department", AddDepartment)
 		admin.GET("/department", ShowDepartments)
+		admin.POST("/doctor", AddDoctor)
+		admin.GET("/doctors", ShowDoctors)
+		admin.GET("/doctor/:id", ShowDoctor)
 	}
 }
