@@ -1,0 +1,20 @@
+syntax = "proto3";
+option go_package = "se/grpcapi";
+
+import "google/protobuf/empty.proto";
+
+message VitalSign {
+  uint64 ID = 1;
+  string Time = 2;
+  double Temperature = 3;
+  uint64 HeartRate = 4;
+  string BloodPressure = 5;
+  uint64 BreathingRate = 6;
+  double BloodOxygen = 7;
+  string Sense = 8;
+}
+
+service VitalSignService {
+  rpc PushVitalSign(VitalSign) returns(google.protobuf.Empty);
+  rpc Call(VitalSign) returns(google.protobuf.Empty);
+}
