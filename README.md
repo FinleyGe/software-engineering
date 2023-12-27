@@ -24,13 +24,21 @@
 - [Gin](https://pkg.go.dev/github.com/gin-gonic/gin)
 - [Gorm](https://gorm.io/zh_CN/docs/index.html)
 
-### 数据库
+#### 数据库
 
-docker 部署
+Docker 部署参考命令:
 
 ```bash
 docker run --detach --name some-mariadb --env MARIADB_ROOT_PASSWORD=my-secret-pw  -p 3306:3306 mariadb:latest
 ```
+
+#### 配置文件
+
+```
+cp config.example.yaml config.yaml
+```
+
+然后对文件修改，注意日志文件必须有权限创建。
 
 ### 前端
 
