@@ -1,10 +1,10 @@
 package db
 
 import (
-	. "Go-Server-Scaffold/config"
-	. "Go-Server-Scaffold/log"
 	"fmt"
 	"log"
+	. "se/config"
+	. "se/log"
 	"time"
 
 	"gorm.io/driver/mysql"

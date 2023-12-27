@@ -1,8 +1,8 @@
 package router
 
 import (
-	. "Go-Server-Scaffold/controller/middleware"
 	"github.com/gin-gonic/gin"
+	. "se/controller/middleware"
 )
 
 var Router *gin.Engine

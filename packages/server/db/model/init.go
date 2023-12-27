@@ -1,10 +1,10 @@
 package model
 
 import (
-	. "Go-Server-Scaffold/db"
+	. "se/db"
 )
 
 func init() {
 	// TODO: Auto create table
-	DB.AutoMigrate(&User{})
+	DB.AutoMigrate(&Doctor{}, Patient{}, Department{}, VitalSign{}, Admin{})
 }

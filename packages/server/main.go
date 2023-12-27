@@ -1,14 +1,14 @@
 package main
 
 import (
-	. "Go-Server-Scaffold/config"
-	_ "Go-Server-Scaffold/log"
-	. "Go-Server-Scaffold/router"
 	"context"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+	. "se/config"
+	_ "se/log"
+	. "se/router"
 	"syscall"
 	"time"
 )

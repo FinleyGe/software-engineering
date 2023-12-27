@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	. "Go-Server-Scaffold/config"
 	"github.com/gin-gonic/gin"
+	. "se/config"
 )
 
 var LogMultiWriter io.Writer
