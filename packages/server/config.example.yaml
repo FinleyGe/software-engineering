@@ -1,8 +1,8 @@
 dev: true
 
 database:
-  db_name: "database"
-  username: "username"
+  db_name: "dbname"
+  username: "dbuser"
   password: "password"
   address: "localhost:3306"
 
@@ -10,5 +10,12 @@ server:
   port: "8888"
   allow_origins:
     - "localhost:8080"
-  log_file_path: "/var/log/Go-Server-Scaffold.log"
+  log_file_path: "./se.log"
+  domain: "example.com"
+  api_route: "/api"
+  default_password: "password"
 
+jwt:
+  issuer: "issuer"
+  secret: "secret"
+  expires: 24
