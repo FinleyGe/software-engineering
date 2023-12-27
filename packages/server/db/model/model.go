@@ -4,19 +4,14 @@ import (
 	"time"
 )
 
-type Department struct {
-	ID   uint64 `gorm:"primary_key"`
-	Name string
-}
-
 type VitalSign struct {
 	ID            uint64 `gorm:"primary_key"`
 	PatientID     uint64
 	Time          time.Time
 	Temperature   float64
 	HeartRate     uint64
-	BloodPressure string
+	BloodPressure float64
 	BreathingRate uint64
-	BloodOxygen   uint64
+	BloodOxygen   float64
 	Sense         string
 }

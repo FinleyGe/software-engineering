@@ -1,598 +1,1455 @@
 
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.071ms] [rows:-] SELECT DATABASE()
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.104ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.437ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[3.364ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.259ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.277ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
 
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[8.995ms] [rows:0] CREATE TABLE `departments` (`id` bigint unsigned AUTO_INCREMENT,`name` longtext,PRIMARY KEY (`id`))
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.196ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.691ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.402ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[8.680ms] [rows:0] CREATE TABLE `doctors` (`id` bigint unsigned AUTO_INCREMENT,`birth` datetime(3) NULL,`name` longtext,`password` longtext,`department_id` bigint unsigned,PRIMARY KEY (`id`),CONSTRAINT `fk_doctors_department` FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`))
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.187ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.480ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.369ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[6.015ms] [rows:0] CREATE TABLE `patients` (`id` bigint unsigned AUTO_INCREMENT,`doctor_id` bigint unsigned,`name` longtext,`password` longtext,`phone` longtext,`bed` longtext,`birth` datetime(3) NULL,`gender` longtext,`in_time` datetime(3) NULL,`out_time` datetime(3) NULL,PRIMARY KEY (`id`))
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.132ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.366ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.237ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[7.032ms] [rows:0] CREATE TABLE `doctor_patients` (`doctor_id` bigint unsigned,`patient_id` bigint unsigned,PRIMARY KEY (`doctor_id`,`patient_id`),CONSTRAINT `fk_doctor_patients_doctor` FOREIGN KEY (`doctor_id`) REFERENCES `doctors`(`id`),CONSTRAINT `fk_doctor_patients_patient` FOREIGN KEY (`patient_id`) REFERENCES `patients`(`id`))
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.154ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.384ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.301ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[8.611ms] [rows:0] CREATE TABLE `vital_signs` (`id` bigint unsigned AUTO_INCREMENT,`patient_id` bigint unsigned,`time` datetime(3) NULL,`temperature` double,`heart_rate` bigint unsigned,`blood_pressure` longtext,`breathing_rate` bigint unsigned,`blood_oxygen` bigint unsigned,`sense` longtext,PRIMARY KEY (`id`),CONSTRAINT `fk_patients_vital_signs` FOREIGN KEY (`patient_id`) REFERENCES `patients`(`id`))
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.229ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.522ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.397ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 19:55:07 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[7.550ms] [rows:0] CREATE TABLE `admins` (`id` bigint unsigned AUTO_INCREMENT,`password` longtext,PRIMARY KEY (`id`))
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
-2023/12/27 19:55:07 Running Server at :8888
-2023/12/27 20:01:12 Shutdown Server ...
-2023/12/27 20:01:12 Server Exiting
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.083ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.407ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.264ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.273ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.162ms] [rows:-] SELECT * FROM `departments` LIMIT 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.863ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.089ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.263ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.199ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.085ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.297ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.168ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.729ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.217ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.279ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.063ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.212ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.182ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.064ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.200ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.115ms] [rows:-] SELECT * FROM `patients` LIMIT 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.557ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.088ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.238ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.250ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.141ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.652ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.105ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.265ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.267ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.073ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.258ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.308ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
 [0.077ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.247ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.266ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.221ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.127ms] [rows:-] SELECT * FROM `departments` LIMIT 1
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.082ms] [rows:-] SELECT DATABASE()
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[2.054ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.214ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.117ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.136ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.355ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.575ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.299ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.073ms] [rows:-] SELECT DATABASE()
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.094ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.232ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.225ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.063ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.217ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.178ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.078ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.250ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.159ms] [rows:-] SELECT * FROM `admins` LIMIT 1
-
-[GORM] 2023/12/27 20:01:13 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.730ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
-2023/12/27 20:01:13 Running Server at :8888
-2023/12/27 20:01:28 Shutdown Server ...
-2023/12/27 20:01:29 Server Exiting
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.095ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.408ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.256ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.083ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.281ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.131ms] [rows:-] SELECT * FROM `departments` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.655ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.078ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.246ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.202ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.234ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.112ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.560ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.095ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.288ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.283ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.078ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.245ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.317ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.105ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.302ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.165ms] [rows:-] SELECT * FROM `patients` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.854ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.118ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.342ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.267ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.086ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.311ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.131ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.658ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.074ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.218ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.240ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.069ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.215ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.256ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.066ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.240ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.220ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.074ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.231ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.126ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.673ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.148ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.645ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.446ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.083ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.253ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.202ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.068ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.221ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.110ms] [rows:-] SELECT * FROM `admins` LIMIT 1
-
-[GORM] 2023/12/27 20:02:19 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.616ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
-2023/12/27 20:02:19 Running Server at :8888
-2023/12/27 20:10:24 Shutdown Server ...
-2023/12/27 20:10:24 Server Exiting
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.089ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.528ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.253ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.078ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.292ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.135ms] [rows:-] SELECT * FROM `departments` LIMIT 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.798ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.083ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.245ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.244ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.092ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.289ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.142ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.562ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.087ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.234ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.281ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.074ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.244ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.213ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.069ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.131ms] [rows:-] SELECT * FROM `patients` LIMIT 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.882ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.092ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.256ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.217ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.082ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.307ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.122ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.601ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.086ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.247ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.250ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.234ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.253ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.074ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.226ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.206ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.075ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.130ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.680ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.092ms] [rows:-] SELECT DATABASE()
-
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
 [0.320ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.293ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.167ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.076ms] [rows:-] SELECT DATABASE()
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.779ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.246ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.104ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.266ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.295ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.093ms] [rows:-] SELECT DATABASE()
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.327ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.257ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.083ms] [rows:-] SELECT DATABASE()
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.129ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.273ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
 
-[GORM] 2023/12/27 20:10:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
-[0.634ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.258ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.084ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.259ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.127ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.718ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.084ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.215ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.071ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.259ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.119ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.599ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.108ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.304ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.321ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.102ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.316ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.325ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.071ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.263ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.208ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.068ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.207ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.114ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.930ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[14.400ms] [rows:0] ALTER TABLE `vital_signs` MODIFY COLUMN `blood_pressure` double
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[17.020ms] [rows:0] ALTER TABLE `vital_signs` MODIFY COLUMN `blood_oxygen` double
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.223ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.638ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[1.307ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.083ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.258ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.206ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.221ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.111ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:40:26 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.642ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
 [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
 [GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
-2023/12/27 20:10:26 Running Server at :8888
-2023/12/27 20:35:10 Shutdown Server ...
-2023/12/27 20:35:10 Server Exiting
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:40:26 Running Server at :8888
+[GIN] 2023/12/27 - 23:40:38 | 401 |     134.188µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:47:53 Shutdown Server ...
+2023/12/27 23:47:53 Server Exiting
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.068ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.391ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.228ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.073ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.252ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.131ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[1.054ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.122ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.288ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.327ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.088ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.288ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.150ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.640ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.096ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.253ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.288ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.245ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.200ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.227ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.119ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.600ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.081ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.223ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.208ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.068ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.275ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.148ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.823ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.100ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.295ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.382ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.126ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.350ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.340ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.108ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.257ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.283ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.076ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.271ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.154ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.610ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.080ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.232ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.242ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.074ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.227ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.200ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.100ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.302ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.176ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:47:54 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.725ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:47:54 Running Server at :8888
+
+[GORM] 2023/12/27 23:48:16 /home/finley/Projects/Software-Engineering/packages/server/db/model/admin.go:14
+[1.213ms] [rows:1] SELECT * FROM `admins` WHERE id = 1 AND `admins`.`id` = 1 ORDER BY `admins`.`id` LIMIT 1
+[GIN] 2023/12/27 - 23:48:16 | 200 |   55.664232ms |             ::1 | POST     "/login/admin"
+2023/12/27 23:48:54 Shutdown Server ...
+2023/12/27 23:48:54 Server Exiting
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.116ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.737ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.419ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.113ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.372ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.164ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.760ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.091ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.247ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.207ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.077ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.225ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.111ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.777ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.076ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.238ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.244ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.092ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.335ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.274ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.101ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.308ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.180ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[1.124ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.117ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.303ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.279ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.102ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.277ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.171ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.696ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.083ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.250ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.267ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.092ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.306ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.305ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.076ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.259ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.095ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.268ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.190ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.985ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.105ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.306ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.408ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.093ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.289ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.245ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.093ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.257ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.136ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:48:55 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.734ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:48:55 Running Server at :8888
+
+[GORM] 2023/12/27 23:48:58 /home/finley/Projects/Software-Engineering/packages/server/db/model/admin.go:14
+[0.912ms] [rows:1] SELECT * FROM `admins` WHERE id = 1 AND `admins`.`id` = 1 ORDER BY `admins`.`id` LIMIT 1
+[GIN] 2023/12/27 - 23:48:58 | 200 |   53.810917ms |             ::1 | POST     "/login/admin"
+[GIN] 2023/12/27 - 23:49:18 | 401 |      33.771µs |             ::1 | GET      "/admin/department"
+[GIN] 2023/12/27 - 23:49:24 | 401 |      20.321µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:50:37 Shutdown Server ...
+2023/12/27 23:50:37 Server Exiting
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.065ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.327ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.212ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.066ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.237ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.117ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.655ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.084ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.241ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.232ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.077ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.298ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.162ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.728ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.091ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.251ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.276ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.080ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.272ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.257ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.125ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.818ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.082ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.247ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.207ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.070ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.246ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.113ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.572ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.105ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.276ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.269ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.110ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.288ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.261ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.249ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.216ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.230ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.153ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.574ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.087ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.229ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.229ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.066ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.214ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.187ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.067ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.208ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.099ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:50:38 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.508ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:50:38 Running Server at :8888
+[GIN] 2023/12/27 - 23:50:41 | 401 |     128.166µs |             ::1 | GET      "/admin/department"
+[GIN] 2023/12/27 - 23:50:46 | 401 |      15.383µs |             ::1 | GET      "/admin/department"
+
+[GORM] 2023/12/27 23:50:56 /home/finley/Projects/Software-Engineering/packages/server/db/model/admin.go:14
+[0.828ms] [rows:1] SELECT * FROM `admins` WHERE id = 1 AND `admins`.`id` = 1 ORDER BY `admins`.`id` LIMIT 1
+[GIN] 2023/12/27 - 23:50:56 | 200 |   55.477864ms |             ::1 | POST     "/login/admin"
+[GIN] 2023/12/27 - 23:51:06 | 401 |      27.332µs |             ::1 | POST     "/admin/department"
+[GIN] 2023/12/27 - 23:51:09 | 401 |      14.903µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:51:43 Shutdown Server ...
+2023/12/27 23:51:43 Server Exiting
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.102ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.528ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.331ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.114ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.405ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.155ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.904ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.098ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.264ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.235ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.083ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.265ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.126ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.551ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.096ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.265ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.258ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.229ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.177ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.060ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.248ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.129ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.651ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.128ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.417ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.330ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.099ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.305ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.183ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.755ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.081ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.232ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.250ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.070ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.221ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.222ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.069ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.210ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.193ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.069ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.209ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.104ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.539ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.083ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.285ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.249ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.085ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.238ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.247ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.102ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.291ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.177ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:51:44 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.788ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:51:44 Running Server at :8888
+[GIN] 2023/12/27 - 23:51:46 | 401 |       98.07µs |             ::1 | GET      "/admin/department"
+[GIN] 2023/12/27 - 23:51:50 | 401 |      51.469µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:52:02 Shutdown Server ...
+2023/12/27 23:52:02 Server Exiting
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.171ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.560ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.411ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.102ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.296ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.149ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.706ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.076ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.232ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.247ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.085ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.250ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.115ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.603ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.103ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.319ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.278ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.080ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.251ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.210ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.234ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.159ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.973ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.109ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.279ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.223ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.079ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.271ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.114ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.629ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.093ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.310ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.320ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.082ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.230ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.287ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.103ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.275ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.231ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.069ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.238ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.130ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.805ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.150ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.377ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.316ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.079ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.307ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.259ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.077ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.283ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.171ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:52:03 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.651ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:52:03 Running Server at :8888
+2023/12/27 23:52:05 
+[GIN] 2023/12/27 - 23:52:05 | 401 |     271.875µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:52:08 
+[GIN] 2023/12/27 - 23:52:08 | 401 |    1.111045ms |             ::1 | GET      "/admin/department"
+2023/12/27 23:53:58 Shutdown Server ...
+2023/12/27 23:53:58 Server Exiting
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.148ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.417ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.318ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.079ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.272ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.119ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.692ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.075ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.243ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.206ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.307ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.133ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.716ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.085ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.280ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.306ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.087ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.276ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.301ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.092ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.301ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.138ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.972ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.088ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.309ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.244ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.097ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.273ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.132ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.717ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.087ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.255ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.234ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.066ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.207ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.217ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.078ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.224ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.194ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.082ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.243ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.109ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.730ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.104ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.355ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.322ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.111ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.269ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.266ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.090ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.289ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.134ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:54:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.656ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:54:10 Running Server at :8888
+
+[GORM] 2023/12/27 23:54:11 /home/finley/Projects/Software-Engineering/packages/server/db/model/department.go:21
+[0.313ms] [rows:0] SELECT * FROM `departments`
+[GIN] 2023/12/27 - 23:54:11 | 200 |     591.593µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:54:50 Shutdown Server ...
+2023/12/27 23:54:50 Server Exiting
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.104ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.334ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.218ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.074ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.237ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.117ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.652ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.078ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.245ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.210ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctors' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.238ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.118ms] [rows:-] SELECT * FROM `doctors` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.544ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctors' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.103ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.269ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.246ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctors' AND constraint_name = 'fk_doctors_department'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.078ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.262ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.205ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.069ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.219ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.130ms] [rows:-] SELECT * FROM `patients` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.634ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.105ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.265ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.210ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'doctor_patients' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.068ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.215ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.136ms] [rows:-] SELECT * FROM `doctor_patients` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.698ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'doctor_patients' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.097ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.252ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.257ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_doctor'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.077ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.252ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.241ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'doctor_patients' AND constraint_name = 'fk_doctor_patients_patient'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.072ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.232ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.322ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'vital_signs' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.077ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.281ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.143ms] [rows:-] SELECT * FROM `vital_signs` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.730ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'vital_signs' ORDER BY ORDINAL_POSITION
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.096ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.310ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.255ms] [rows:-] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'se' AND table_name = 'vital_signs' AND constraint_name = 'fk_patients_vital_signs'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.097ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.258ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.201ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'se' AND table_name = 'admins' AND table_type = 'BASE TABLE'
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.070ms] [rows:-] SELECT DATABASE()
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.205ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'se%' ORDER BY SCHEMA_NAME='se' DESC,SCHEMA_NAME limit 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.107ms] [rows:-] SELECT * FROM `admins` LIMIT 1
+
+[GORM] 2023/12/27 23:54:51 /home/finley/Projects/Software-Engineering/packages/server/db/model/init.go:9
+[0.651ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'se' AND table_name = 'admins' ORDER BY ORDINAL_POSITION
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /login/patient            --> se/controller.PatientLogin (4 handlers)
+[GIN-debug] POST   /login/doctor             --> se/controller.DoctorLogin (4 handlers)
+[GIN-debug] POST   /login/admin              --> se/controller.AdminLogin (4 handlers)
+[GIN-debug] POST   /admin/department         --> se/controller.AddDepartment (5 handlers)
+[GIN-debug] GET    /admin/department         --> se/controller.ShowDepartments (5 handlers)
+2023/12/27 23:54:51 Running Server at :8888
+
+[GORM] 2023/12/27 23:54:58 /home/finley/Projects/Software-Engineering/packages/server/db/model/department.go:21
+[0.335ms] [rows:0] SELECT * FROM `departments`
+[GIN] 2023/12/27 - 23:54:58 | 200 |     757.009µs |             ::1 | GET      "/admin/department"
+
+[GORM] 2023/12/27 23:55:10 /home/finley/Projects/Software-Engineering/packages/server/db/model/department.go:13
+[3.742ms] [rows:1] INSERT INTO `departments` (`name`) VALUES ('外科') RETURNING `id`
+[GIN] 2023/12/27 - 23:55:10 | 200 |    4.031603ms |             ::1 | POST     "/admin/department"
+
+[GORM] 2023/12/27 23:55:14 /home/finley/Projects/Software-Engineering/packages/server/db/model/department.go:21
+[0.325ms] [rows:1] SELECT * FROM `departments`
+[GIN] 2023/12/27 - 23:55:14 | 200 |      440.55µs |             ::1 | GET      "/admin/department"
+2023/12/27 23:55:25 Shutdown Server ...
+2023/12/27 23:55:25 Server Exiting

@@ -1,13 +1,14 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
 	. "se/utility"
+
+	"github.com/gin-gonic/gin"
 )
 
 func IsDoctor(c *gin.Context) {
-	token := c.GetHeader("Authorization")
-	if token == "" {
+	token, err := c.Cookie("token")
+	if err != nil {
 		ResponseUnauthorized(c)
 		c.Abort()
 		return
@@ -29,8 +30,8 @@ func IsDoctor(c *gin.Context) {
 }
 
 func IsPatient(c *gin.Context) {
-	token := c.GetHeader("Authorization")
-	if token == "" {
+	token, err := c.Cookie("token")
+	if err != nil {
 		ResponseUnauthorized(c)
 		c.Abort()
 		return
@@ -52,7 +53,12 @@ func IsPatient(c *gin.Context) {
 }
 
 func IsAdmin(c *gin.Context) {
-	token := c.GetHeader("Authorization")
+	token, err := c.Cookie("token")
+	if err != nil {
+		ResponseUnauthorized(c)
+		c.Abort()
+		return
+	}
 	if token == "" {
 		ResponseUnauthorized(c)
 		c.Abort()

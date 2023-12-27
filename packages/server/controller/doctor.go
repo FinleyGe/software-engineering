@@ -1,6 +1,7 @@
 package controller
 
 import (
+	. "se/config"
 	"se/db/model"
 	. "se/utility"
 
@@ -24,9 +25,12 @@ func DoctorLogin(c *gin.Context) {
 		if err != nil {
 			ResponseServerError(c)
 		} else {
-			ResponseOKWithData(c, gin.H{
-				"token": token,
-			})
+			if Config.Dev {
+				c.SetCookie("token", token, 3600, "/", "localhost", false, true)
+			} else {
+				c.SetCookie("token", token, 3600, Config.Server.ApiRoute, Config.Server.Domain, false, true)
+			}
+			ResponseOK(c)
 		}
 	}
 	ResponseBadRequest(c)

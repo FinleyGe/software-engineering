@@ -11,6 +11,8 @@ type server struct {
 	Port         string   `mapstructure:"port"`
 	AllowOrigins []string `mapstructure:"allow_origins"`
 	LogFilePath  string   `mapstructure:"log_file_path"`
+	ApiRoute     string   `mapstructure:"api_route"`
+	Domain       string   `mapstructure:"domain"`
 }
 
 type database struct {
