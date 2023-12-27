@@ -24,6 +24,14 @@
 - [Gin](https://pkg.go.dev/github.com/gin-gonic/gin)
 - [Gorm](https://gorm.io/zh_CN/docs/index.html)
 
+### 数据库
+
+docker 部署
+
+```bash
+docker run --detach --name some-mariadb --env MARIADB_ROOT_PASSWORD=my-secret-pw  -p 3306:3306 mariadb:latest
+```
+
 ### 前端
 
 前端使用 Vue3 开发, 使用 Vite 脚手架，使用 Vue-router, pinia, Tailwind.css
