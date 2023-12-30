@@ -15,6 +15,6 @@ message VitalSign {
 }
 
 service VitalSignService {
-  rpc PushVitalSign(VitalSign) returns(google.protobuf.Empty);
-  rpc Call(VitalSign) returns(google.protobuf.Empty);
+  rpc PushVitalSign(stream VitalSign) returns (google.protobuf.Empty);
+  // rpc Call(VitalSign) returns (google.protobuf.Empty);
 }
