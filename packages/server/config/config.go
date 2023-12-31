@@ -5,6 +5,7 @@ type ConfigStruct struct {
 	Server   server   `mapstructure:"server"`
 	Database database `mapstructure:"database"`
 	Jwt      jwt      `mapstructure:"jwt"`
+	Grpc     grpc     `mapstructure:"grpc"`
 }
 
 type server struct {
@@ -27,4 +28,8 @@ type jwt struct {
 	Issuer  string `mapstructure:"issuer"`
 	Expires int    `mapstructure:"expires"`
 	Secret  string `mapstructure:"secret"`
+}
+
+type grpc struct {
+	Port string `mapstructure:"port"`
 }

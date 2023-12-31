@@ -6,8 +6,8 @@ import (
 )
 
 type Admin struct {
-	ID       uint64 `gorm:"primary_key"`
-	Password string
+	ID       uint64 `gorm:"primary_key" json:"id"`
+	Password string `json:"-"`
 }
 
 func (admin *Admin) CheckPassword(password string) bool {

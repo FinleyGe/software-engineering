@@ -5,8 +5,8 @@ import (
 )
 
 type Department struct {
-	ID   uint64 `gorm:"primary_key"`
-	Name string `gorm:"not null,unique"`
+	ID   uint64 `gorm:"primary_key" json:"id"`
+	Name string `gorm:"not null,unique" json:"name"`
 }
 
 func (department *Department) Add() bool {

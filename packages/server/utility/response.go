@@ -9,12 +9,12 @@ import (
 func Response(c *gin.Context, code int, message string, data interface{}) {
 	if data == nil {
 		c.JSON(code, gin.H{
-			"message": message,
+			"msg": message,
 		})
 	} else {
 		c.JSON(code, gin.H{
-			"message": message,
-			"data":    data,
+			"msg":  message,
+			"data": data,
 		})
 	}
 }

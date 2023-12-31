@@ -5,6 +5,13 @@ import (
 )
 
 func init() {
-	// TODO: Auto create table
-	DB.AutoMigrate(&Doctor{}, Patient{}, Department{}, VitalSign{}, Admin{})
+	DB.AutoMigrate(
+		&Doctor{},
+		&Patient{},
+		&Department{},
+		&VitalSign{},
+		&Admin{},
+		&Log{},
+		&Bed{},
+	)
 }

@@ -3,17 +3,17 @@ package model
 import (
 	. "se/db"
 	"se/utility"
-	"time"
 )
 
 type Doctor struct {
-	ID           uint64 `gorm:"primary_key"`
-	Birth        time.Time
-	Name         string `gorm:"not null"`
-	Password     string `gorm:"not null" json:"-"`
-	DepartmentID uint64 `gorm:"not null"`
-	Department   Department
-	Patients     []Patient `gorm:"many2many:doctor_patients;"`
+	ID           uint64       `gorm:"primary_key" json:"id"`
+	Birth        utility.Time `json:"birth"`
+	Name         string       `gorm:"not null" json:"name"`
+	Password     string       `gorm:"not null" json:"-"`
+	State        string       `gorm:"not null" json:"state"`
+	DepartmentID uint64       `gorm:"not null" json:"department_id"`
+	Department   Department   `json:"department"`
+	Patients     []Patient    `gorm:"many2many:doctor_patients;" json:"patients"`
 }
 
 func (doctor *Doctor) CheckPassword(password string) bool {
@@ -31,9 +31,27 @@ func GetAllDoctors() []Doctor {
 	return doctors
 }
 
+func GetAllDoctorsWithDepartment() []Doctor {
+	doctors := []Doctor{}
+	DB.Preload("Department").Find(&doctors)
+	return doctors
+}
+
+func GetAllDoctorsWithPatients() []Doctor {
+	doctors := []Doctor{}
+	DB.Preload("Patients").Find(&doctors)
+	return doctors
+}
+
+func GetAllDoctorsWithDepartmentAndPatients() []Doctor {
+	doctors := []Doctor{}
+	DB.Preload("Department").Preload("Patients").Find(&doctors)
+	return doctors
+}
+
 func GetDoctorByID(id uint64) Doctor {
 	doctor := Doctor{}
-	DB.Where("id = ?", id).First(&doctor)
+	DB.Where("id = ?", id).Preload("Department").Preload("Patients").First(&doctor)
 	return doctor
 }
 
@@ -41,4 +59,18 @@ func GetDoctorByName(name string) Doctor {
 	doctor := Doctor{}
 	DB.Where("name = ?", name).First(&doctor)
 	return doctor
+}
+
+func (doctor *Doctor) GetDepartment() Department {
+	DB.Where("id = ?", doctor.DepartmentID).First(&doctor.Department)
+	return doctor.Department
+}
+
+func (doctor *Doctor) GetPatients() []Patient {
+	DB.Model(doctor).Association("Patients").Find(&doctor.Patients)
+	return doctor.Patients
+}
+
+func (doctor *Doctor) GetPatientsCount() int64 {
+	return DB.Model(doctor).Association("Patients").Count()
 }

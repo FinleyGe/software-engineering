@@ -1,6 +1,9 @@
 package utility
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+	"se/config"
+)
 
 func PasswordHash(pwd string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
@@ -13,4 +16,9 @@ func PasswordHash(pwd string) (string, error) {
 func PasswordVerify(pwd, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(pwd))
 	return err == nil
+}
+
+func GetDefaultPassword() string {
+	pwd, _ := PasswordHash(config.Config.Server.DefaultPassword)
+	return pwd
 }

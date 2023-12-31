@@ -1,10 +1,13 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
 	. "se/config"
 	"se/db/model"
+	"se/grpc"
 	. "se/utility"
+
+	"github.com/gin-gonic/gin"
 )
 
 func PatientLogin(c *gin.Context) {
@@ -26,13 +29,29 @@ func PatientLogin(c *gin.Context) {
 			ResponseServerError(c)
 		} else {
 			if Config.Dev {
-				c.SetCookie("token", token, 3600, "/", "localhost", false, true)
+				c.SetCookie("token", token, 3600, "/", "localhost", false, false)
 			} else {
-				c.SetCookie("token", token, 3600, Config.Server.ApiRoute, Config.Server.Domain, false, true)
+				c.SetCookie("token", token, 3600, Config.Server.ApiRoute, Config.Server.Domain, false, false)
 			}
 			ResponseOK(c)
 		}
 	} else {
-		ResponseUnauthorized(c)
+		ResponseBadRequest(c)
+	}
+}
+
+func Call(c *gin.Context) {
+	patient_id := c.MustGet("id").(uint64)
+	role := c.MustGet("role").(string)
+	if role != "patient" {
+		ResponseForbidden(c)
+		return
+	}
+	err := grpc.Call(patient_id)
+	if err != nil {
+		log.Println(err)
+		ResponseServerError(c)
+	} else {
+		ResponseOK(c)
 	}
 }
