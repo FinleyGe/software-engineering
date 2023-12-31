@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type VitalSignServiceClient interface {
 	PushVitalSign(ctx context.Context, opts ...grpc.CallOption) (VitalSignService_PushVitalSignClient, error)
+	Call(ctx context.Context, in *CallRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type vitalSignServiceClient struct {
@@ -68,11 +69,21 @@ func (x *vitalSignServicePushVitalSignClient) CloseAndRecv() (*emptypb.Empty, er
 	return m, nil
 }
 
+func (c *vitalSignServiceClient) Call(ctx context.Context, in *CallRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/VitalSignService/Call", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VitalSignServiceServer is the server API for VitalSignService service.
 // All implementations must embed UnimplementedVitalSignServiceServer
 // for forward compatibility
 type VitalSignServiceServer interface {
 	PushVitalSign(VitalSignService_PushVitalSignServer) error
+	Call(context.Context, *CallRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedVitalSignServiceServer()
 }
 
@@ -82,6 +93,9 @@ type UnimplementedVitalSignServiceServer struct {
 
 func (UnimplementedVitalSignServiceServer) PushVitalSign(VitalSignService_PushVitalSignServer) error {
 	return status.Errorf(codes.Unimplemented, "method PushVitalSign not implemented")
+}
+func (UnimplementedVitalSignServiceServer) Call(context.Context, *CallRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Call not implemented")
 }
 func (UnimplementedVitalSignServiceServer) mustEmbedUnimplementedVitalSignServiceServer() {}
 
@@ -122,18 +136,154 @@ func (x *vitalSignServicePushVitalSignServer) Recv() (*VitalSign, error) {
 	return m, nil
 }
 
+func _VitalSignService_Call_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CallRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VitalSignServiceServer).Call(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VitalSignService/Call",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VitalSignServiceServer).Call(ctx, req.(*CallRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VitalSignService_ServiceDesc is the grpc.ServiceDesc for VitalSignService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var VitalSignService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "VitalSignService",
 	HandlerType: (*VitalSignServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Call",
+			Handler:    _VitalSignService_Call_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "PushVitalSign",
 			Handler:       _VitalSignService_PushVitalSign_Handler,
 			ClientStreams: true,
+		},
+	},
+	Metadata: "api.proto",
+}
+
+// BellServiceClient is the client API for BellService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type BellServiceClient interface {
+	BellStream(ctx context.Context, in *BellRequest, opts ...grpc.CallOption) (BellService_BellStreamClient, error)
+}
+
+type bellServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewBellServiceClient(cc grpc.ClientConnInterface) BellServiceClient {
+	return &bellServiceClient{cc}
+}
+
+func (c *bellServiceClient) BellStream(ctx context.Context, in *BellRequest, opts ...grpc.CallOption) (BellService_BellStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &BellService_ServiceDesc.Streams[0], "/BellService/BellStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bellServiceBellStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type BellService_BellStreamClient interface {
+	Recv() (*BellResponse, error)
+	grpc.ClientStream
+}
+
+type bellServiceBellStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *bellServiceBellStreamClient) Recv() (*BellResponse, error) {
+	m := new(BellResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// BellServiceServer is the server API for BellService service.
+// All implementations must embed UnimplementedBellServiceServer
+// for forward compatibility
+type BellServiceServer interface {
+	BellStream(*BellRequest, BellService_BellStreamServer) error
+	mustEmbedUnimplementedBellServiceServer()
+}
+
+// UnimplementedBellServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedBellServiceServer struct {
+}
+
+func (UnimplementedBellServiceServer) BellStream(*BellRequest, BellService_BellStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method BellStream not implemented")
+}
+func (UnimplementedBellServiceServer) mustEmbedUnimplementedBellServiceServer() {}
+
+// UnsafeBellServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to BellServiceServer will
+// result in compilation errors.
+type UnsafeBellServiceServer interface {
+	mustEmbedUnimplementedBellServiceServer()
+}
+
+func RegisterBellServiceServer(s grpc.ServiceRegistrar, srv BellServiceServer) {
+	s.RegisterService(&BellService_ServiceDesc, srv)
+}
+
+func _BellService_BellStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(BellRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(BellServiceServer).BellStream(m, &bellServiceBellStreamServer{stream})
+}
+
+type BellService_BellStreamServer interface {
+	Send(*BellResponse) error
+	grpc.ServerStream
+}
+
+type bellServiceBellStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *bellServiceBellStreamServer) Send(m *BellResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+// BellService_ServiceDesc is the grpc.ServiceDesc for BellService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var BellService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "BellService",
+	HandlerType: (*BellServiceServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "BellStream",
+			Handler:       _BellService_BellStream_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "api.proto",

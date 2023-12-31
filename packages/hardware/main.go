@@ -1,10 +1,9 @@
 package main
 
 import (
-	"hardware/grpc"
-	"log"
-
 	"github.com/joho/godotenv"
+	"hardware/cli"
+	"log"
 )
 
 func init() {
@@ -15,5 +14,5 @@ func init() {
 }
 
 func main() {
-	grpc.Run()
+	cli.Run()
 }
