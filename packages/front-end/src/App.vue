@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { NButton, NMessageProvider, NSpace } from "naive-ui";
-import { onMounted, ref } from "vue";
 import AdminNavigator from "@components/AdminNavigator.vue";
 import Login from "@components/Login.vue";
-import { RouterView } from "vue-router";
 import { useUserStore } from "@store/user";
 import { useVueCookies } from "@/cookie";
+import { NButton, NConfigProvider, NMessageProvider, NSpace } from "naive-ui";
+import { RouterView } from "vue-router";
+import { onMounted, ref } from "vue";
+import type { Role } from "@/type";
 
 const isLoginShow = ref<boolean>(false);
 const userStore = useUserStore();
@@ -17,7 +18,7 @@ onMounted(() => {
       return;
     } else {
       userStore.isLogin = true;
-      userStore.role = localStorage.getItem("role") as string;
+      userStore.role = localStorage.getItem("role") as Role;
     }
   }
 });
@@ -25,45 +26,46 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-message-provider>
-    <Login
-      v-show="isLoginShow"
-      @close="isLoginShow = false"
-    />
-    <div class="h-full bg-white dark:bg-slate-800">
-      <n-space
-        justify="space-between"
-        align="center"
-        style="margin: 0 1rem;"
+  <n-config-provider>
+    <n-message-provider>
+      <Login
+        v-show="isLoginShow"
+        @close="isLoginShow = false"
+      />
+      <header
+        class="drop-shadow-xl h-fit bg-gray-100 p-3"
       >
-        <div class="text-3xl m-3 font-bold cursor-pointer">
-          <router-link to="/">
+        <n-space
+          justify="space-between"
+          align="center"
+          style="margin: 0 1rem;"
+        >
+          <router-link
+            to="/"
+            class="text-3xl m-3 font-bold text-gray-800"
+            style="text-decoration: none;"
+          >
             医院管理系统
           </router-link>
-        </div>
-        <template v-if="userStore.role == 'guest'">
-          <n-button
-            v-if="!userStore.isLogin"
-            type="primary"
-            class="bg-green-500 hover:bg-green-600"
-            @click="isLoginShow = true"
-          >
-            登录
-          </n-button>
-        </template>
-        <template v-else-if="userStore.role == 'admin'">
-          <AdminNavigator />
-        </template>
-      </n-space>
-      <main>
+          <template v-if="userStore.role == 'guest'">
+            <n-button
+              v-if="!userStore.isLogin"
+              type="primary"
+              @click="isLoginShow = true"
+            >
+              登录
+            </n-button>
+          </template>
+          <template v-else-if="userStore.role == 'admin'">
+            <AdminNavigator />
+          </template>
+        </n-space>
+      </header>
+      <main class="bg-gray-50 m-3 p-3">
         <RouterView />
       </main>
-
-      <footer class="text-xs italic">
-        Software Engineering Project by ZJUTers
-      </footer>
-    </div>
-  </n-message-provider>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
 <style scoped></style>

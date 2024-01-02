@@ -9,14 +9,14 @@ type Props = {
   options: Array<{label: string, value: number}>
 }
 const props = defineProps<Props>();
-const value = ref<number>(props.value);
+const initValue = ref<number>(props.value);
 const isEdit = ref<boolean>(false);
 const emits = defineEmits<{
   (e:"submit", value: number): void
 }>();
 
 function submit() {
-  emits("submit", value.value);
+  emits("submit", initValue.value);
   isEdit.value = false;
 }
 
@@ -27,7 +27,7 @@ function submit() {
       <n-space>
         <n-select
           v-if="isEdit"
-          v-model:value="value"
+          v-model:value="initValue"
           :options="options"
         />
         <n-button
@@ -48,7 +48,7 @@ function submit() {
       v-else
       @click="isEdit = true"
     >
-      {{ options.find((item) => item.value === value)?.label }}
+      {{ options.find((item) => item.value === initValue)?.label }}
     </span>
   </div>
 </template>

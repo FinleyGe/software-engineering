@@ -10,6 +10,9 @@ const NavList = [{
 }, {
   "name": "科室管理",
   "path": "/admin/department"
+}, {
+  "name": "床位管理",
+  "path": "/admin/bed"
 }] ;
 </script>
 <template>

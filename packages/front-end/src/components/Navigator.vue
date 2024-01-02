@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {NButton, NSpace} from "naive-ui";
 
 const props = defineProps<{
   navList: {
@@ -9,17 +10,21 @@ const props = defineProps<{
 
 </script>
 <template>
-  <div class="flex flex-row gap-3">
-    <button
+  <n-space>
+    <n-button
       v-for="item in props.navList"
       :key="item.name"
-      class="text-l cursor-pointer bg-blue-100 hover:bg-blue-200 p-2 rounded-xl"
+      type="primary"
+      @click="$router.push(item.path)"
     >
-      <router-link :to="item.path">
-        {{ item.name }}
-      </router-link>
-    </button>
-  </div>
+      <!-- <router-link -->
+      <!--   :to="item.path" -->
+      <!--   style="text-decoration: none;" -->
+      <!-- > -->
+      {{ item.name }}
+      <!-- </router-link> -->
+    </n-button>
+  </n-space>
 </template>
 
 <style scoped lang="scss">

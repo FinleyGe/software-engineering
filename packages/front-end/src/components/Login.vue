@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {NButton, NInput,NSpace} from "naive-ui";
 import { Login } from "@/api";
 import { Role } from "@/type/user";
 import { ref } from "vue";
@@ -10,26 +11,26 @@ const emits = defineEmits<{
   (e:"close"):void,
 }>();
 
-const id = ref<number>(0);
+const id = ref<string>("");
 const password = ref<string>("");
 const role = ref<Role>("doctor");
 
 function handleLogin(){
   console.log("login");
   Login(
-    id.value,
+    Number(id.value),
     password.value,
     role.value
   ).then((res) => {
-    if (res.data.message === "OK") {
+    if (res.data.msg === "OK") {
       message.success("登录成功");
       userStore.isLogin = true;
       userStore.role = role.value;
       localStorage.setItem("role", role.value);
-    } else {
-      message.error("登录失败");
     }
     emits("close");
+  }).catch((err) => {
+    message.error(err);
   });
   emits("close");
 }
@@ -41,85 +42,73 @@ function handleLogin(){
   >
     <div class="flex flex-col bg-white rounded-lg shadow-lg p-10 z-50">
       <header>
-        <h1 class="text-xl font-bold">
+        <h1 class="text-xl font-bold w-fit m-auto">
           登录
         </h1>
       </header>
 
-      <div class="flex flex-col">
-        <div class="flex flex-row items-center">
-          <label class="text-sm font-bold">
-            帐号
-          </label>
-          <input
-            v-model.number="id"
+      <n-space vertical>
+        <n-space vertical>
+          <n-input
+            v-model:value="id"
             type="text"
-            class="border border-gray-300 rounded-lg p-2"
-          >
-        </div>
-        <div class="flex flex-row items-center">
-          <label class="text-sm font-bold">
-            密码
-          </label>
-          <input
-            v-model="password"
+            placeholder="请输入帐号"
+          />
+          <n-input
+            v-model:value="password"
             type="password"
-            class="border border-gray-300 rounded-lg p-2"
-          >
-        </div>
+            placeholder="请输入密码"
+          />
+        </n-space>
         <div class="flex flex-row items-center">
           <label class="text-sm font-bold">
             身份
           </label>
-          <fieldset
-            class="flex-row"
+          <input
+            v-model="role"
+            type="radio"
+            name="identity"
+            value="doctor"
+            class="border border-gray-300 rounded-lg p-2"
           >
-            <input
-              v-model="role"
-              type="radio"
-              name="identity"
-              value="doctor"
-              class="border border-gray-300 rounded-lg p-2"
-            >
-            <label class="text-sm font-bold">
-              医生
-            </label>
-            <input
-              v-model="role"
-              type="radio"
-              name="identity"
-              value="patient"
-              class="border border-gray-300 rounded-lg p-2"
-            >
-            <label class="text-sm font-bold">
-              患者
-            </label>
-            <input
-              v-model="role"
-              type="radio"
-              name="identity"
-              value="admin"
-              class="border border-gray-300 rounded-lg p-2"
-            >
-            <label class="text-sm font-bold">
-              管理员
-            </label>
-          </fieldset>
+          <label class="text-sm font-bold">
+            医生
+          </label>
+          <input
+            v-model="role"
+            type="radio"
+            name="identity"
+            value="patient"
+            class="border border-gray-300 rounded-lg p-2"
+          >
+          <label class="text-sm font-bold">
+            患者
+          </label>
+          <input
+            v-model="role"
+            type="radio"
+            name="identity"
+            value="admin"
+            class="border border-gray-300 rounded-lg p-2"
+          >
+          <label class="text-sm font-bold">
+            管理员
+          </label>
         </div>
-      </div>
+      </n-space>
       <footer class="mt-2 flex flex-row justify-around">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        <n-button
+          type="primary"
           @click="handleLogin"
         >
           登录
-        </button>
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        </n-button>
+        <n-button
+          type="error"
           @click="$emit('close')"
         >
           取消
-        </button>
+        </n-button>
       </footer>
     </div>
   </div>

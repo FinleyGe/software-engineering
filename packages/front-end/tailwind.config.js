@@ -4,10 +4,12 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
+  darkMode: "media",
   theme: {
     extend: {},
   },
   plugins: [],
-}
-
+  corePlugins:{
+    preflight: false,
+  }
+};
