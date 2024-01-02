@@ -1,4 +1,4 @@
 export interface Res<T> {
-  message: string;
+  msg: string;
   data: T;
 }
