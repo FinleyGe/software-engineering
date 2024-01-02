@@ -1,11 +1,15 @@
 export interface Patient {
   id: number;
-  doctor_id: number;
-  bed_id: number;
+  name: string;
+  doctor: {
+    id: number;
+    name: string;
+  }
+  bed: {
+    id: number;
+    number: string;
+  }
   state: string;
-  phone: string;
-  birth: string;
-  gender: string;
   in_time: string;
   out_time: string;
 }
@@ -28,4 +32,10 @@ export interface VitalSign {
   breathing_rate: number;
   blood_oxygen: number;
   sense: string;
+}
+
+export interface PatientDetail extends Patient {
+  gender: string;
+  phone: string;
+  birth: string;
 }

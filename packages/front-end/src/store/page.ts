@@ -1,6 +1,3 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const usePageStore =
-  defineStore('page', () => {
-
-  })
+export const usePageStore = defineStore("page", () => {});

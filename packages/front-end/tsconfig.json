@@ -49,6 +49,9 @@
       ],
       "@type/*": [
         "src/type/*"
+      ],
+      "@util/*": [
+        "src/util/*"
       ]
     }
   },

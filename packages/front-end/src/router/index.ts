@@ -44,6 +44,24 @@ const routes = <RouteRecordRaw[]>[
         meta: {
           title: "医院管理系统 | 床位管理"
         }
+      },
+      {
+        path: "patient/:id",
+        name: "AdminPatientDetail",
+        component: () => import("@views/PatientDetail.vue"),
+        props: true,
+        meta: {
+          title: "医院管理系统 | 患者详情"
+        }
+      },
+      {
+        path: "monitor/:id",
+        name: "AdminVitalSign",
+        component: () => import("@views/Monitor.vue"),
+        props: true,
+        meta: {
+          title: "医院管理系统 | 生命体征监测"
+        }
       }
     ]
   }

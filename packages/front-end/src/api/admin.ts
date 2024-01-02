@@ -1,5 +1,12 @@
-import type { Bed,Department,Doctor,Patient,Res } from "@/type";
 import {api} from "./api";
+import type { Bed,
+  Department,
+  Doctor,
+  Patient,
+  Res,
+  PatientDetail,
+  VitalSign
+} from "@/type";
 
 export function AdminGetDepartments(){
   return api.get<Res<Department[]>>("/admin/department");
@@ -90,5 +97,32 @@ export function AdminAddPatient(
 ) {
   return api.post<Res<null>>(
     "/admin/patient",
-    request);
+    request
+  );
+}
+
+export function AdminDeletePatient(id:number){
+  return api.delete<Res<null>>("/admin/patient",{
+    params:{id}
+  });
+}
+
+export function AdminGetPatient(id:number){
+  return api.get<Res<PatientDetail>>("/admin/patient/"+id);
+}
+
+export function AdminGetVitalSigns(
+  bed_id:number,
+  time_start:string | null,
+  time_utill:string | null,
+) {
+  console.log(time_start,time_utill);
+  return api.get<Res<VitalSign[]>>(
+    "/admin/vital_signs/"+bed_id, {
+      params: {
+        time_start,
+        time_utill
+      }
+    }
+  );
 }
