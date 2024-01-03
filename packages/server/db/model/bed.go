@@ -2,12 +2,17 @@ package model
 
 import (
 	. "se/db"
+
+	"gorm.io/gorm"
 )
 
 type Bed struct {
-	ID        uint64 `json:"id" gorm:"primary_key"`
-	BedNumber string `json:"bed_number" gorm:"type:varchar(255);not null;unique_index"`
-	Occupied  bool   `json:"occupied" gorm:"default:false"`
+	ID           uint64         `json:"id" gorm:"primary_key"`
+	BedNumber    string         `json:"bed_number" gorm:"uniqueIndex"`
+	Occupied     bool           `json:"occupied" gorm:"default:false"`
+	DeletedAt    gorm.DeletedAt `json:"deleted_at"`
+	DepartmentID uint64         `json:"department_id"`
+	Department   Department     `json:"-"`
 }
 
 func (bed *Bed) Add() bool {
@@ -34,4 +39,18 @@ func GetBedByBedNumber(bedNumber string) Bed {
 
 func (bed *Bed) Update() bool {
 	return DB.Save(bed).Error == nil
+}
+
+func (bed *Bed) Delete() bool {
+	return DB.Delete(bed).Error == nil
+}
+
+func (bed *Bed) SetOccupied() bool {
+	bed.Occupied = true
+	return bed.Update()
+}
+
+func (bed *Bed) SetEmpty() bool {
+	bed.Occupied = false
+	return bed.Update()
 }

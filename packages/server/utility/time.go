@@ -60,3 +60,7 @@ func AsTime(str string) Time {
 func (t Time) IsZero() bool {
 	return time.Time(t).IsZero()
 }
+
+func TimeNow() Time {
+	return Time(time.Now())
+}

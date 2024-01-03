@@ -3,17 +3,21 @@ package model
 import (
 	. "se/db"
 	"se/utility"
+
+	"gorm.io/gorm"
 )
 
 type Doctor struct {
-	ID           uint64       `gorm:"primary_key" json:"id"`
-	Birth        utility.Time `json:"birth"`
-	Name         string       `gorm:"not null" json:"name"`
-	Password     string       `gorm:"not null" json:"-"`
-	State        string       `gorm:"not null" json:"state"`
-	DepartmentID uint64       `gorm:"not null" json:"department_id"`
-	Department   Department   `json:"department"`
-	Patients     []Patient    `gorm:"many2many:doctor_patients;" json:"patients"`
+	ID           uint64         `gorm:"primary_key" json:"id"`
+	Birth        utility.Time   `json:"birth"`
+	Name         string         `gorm:"not null" json:"name"`
+	Password     string         `gorm:"not null" json:"-"`
+	State        string         `gorm:"not null" json:"state"`
+	DepartmentID uint64         `gorm:"not null" json:"department_id"`
+	Department   Department     `json:"department"`
+	Patients     []Patient      `gorm:"many2many:doctor_patients;" json:"patients"`
+	DeletedAt    gorm.DeletedAt `json:"deleted_at"`
+	Logs         []Log          `json:"logs"`
 }
 
 func (doctor *Doctor) CheckPassword(password string) bool {
@@ -73,4 +77,29 @@ func (doctor *Doctor) GetPatients() []Patient {
 
 func (doctor *Doctor) GetPatientsCount() int64 {
 	return DB.Model(doctor).Association("Patients").Count()
+}
+
+func (doctor *Doctor) Update() bool {
+	return DB.Save(doctor).Error == nil
+}
+
+func (doctor *Doctor) UpdateDepartment(departmentID uint64) bool {
+	DB.Where("id = ?", doctor.ID).First(&doctor)
+	doctor.DepartmentID = departmentID
+	return DB.Save(doctor).Error == nil
+}
+
+func (doctor *Doctor) Delete() bool {
+	return DB.Delete(doctor).Error == nil
+}
+
+func (doctor *Doctor) GetLogs() []Log {
+	logs := []Log{}
+	patientIDs := []uint64{}
+	DB.Model(doctor).Association("Patients").Find(&doctor.Patients)
+	for _, patient := range doctor.Patients {
+		patientIDs = append(patientIDs, patient.ID)
+	}
+	DB.Where("patient_id IN (?)", patientIDs).Find(&logs)
+	return logs
 }

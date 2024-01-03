@@ -36,6 +36,7 @@ func main() {
 		if err := grpc.GrpcServer.Serve(grpc.Lis); err != nil {
 			log.Fatalf("[GRPC] Listen: %s\n", err)
 		}
+
 	}()
 
 	quit := make(chan os.Signal)
@@ -45,9 +46,10 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	defer grpc.GrpcServer.Stop()
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
 	log.Println("Server Exiting")
+	grpc.GrpcServer.Stop()
+	log.Println("GRPC Server Exiting")
 }

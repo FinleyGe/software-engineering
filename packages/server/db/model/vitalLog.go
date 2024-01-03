@@ -8,6 +8,7 @@ import (
 type VitalSign struct {
 	ID            uint64       `gorm:"primary_key" json:"id"`
 	BedID         uint64       `json:"bed_id"`
+	PatientID     uint64       `json:"patient_id"`
 	Time          utility.Time `json:"time"`
 	Temperature   float64      `json:"temperature"`
 	HeartRate     uint64       `json:"heart_rate"`
@@ -18,6 +19,8 @@ type VitalSign struct {
 }
 
 func (vitalSign *VitalSign) Add() error {
+	p := GetPatientByBedID(vitalSign.BedID)
+	vitalSign.PatientID = p.ID
 	return DB.Create(vitalSign).Error
 }
 

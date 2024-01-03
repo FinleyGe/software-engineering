@@ -3,6 +3,7 @@ package controller
 import (
 	. "se/config"
 	"se/db/model"
+	"se/utility"
 	. "se/utility"
 	"strconv"
 
@@ -101,8 +102,8 @@ func ShowDoctors(c *gin.Context) {
 			PatientCount:   uint64(doctor.GetPatientsCount()),
 			State:          doctor.State,
 		}
-		ResponseOKWithData(c, doctorInfos)
 	}
+	ResponseOKWithData(c, doctorInfos)
 }
 
 func ShowDoctor(c *gin.Context) {
@@ -138,14 +139,146 @@ func ShowBed(c *gin.Context) {
 
 func AddBed(c *gin.Context) {
 	b := struct {
-		Number string `json:"number"`
+		Number       string `json:"number"`
+		DepartmentID uint64 `json:"department_id"`
 	}{}
 
 	c.BindJSON(&b)
 	bed := model.Bed{
-		BedNumber: b.Number,
+		BedNumber:    b.Number,
+		DepartmentID: b.DepartmentID,
 	}
 	if bed.Add() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func UpdateDepartment(c *gin.Context) {
+	d := struct {
+		ID   uint64 `json:"id"`
+		Name string `json:"name"`
+	}{}
+	c.BindJSON(&d)
+	department := model.Department{
+		ID:   d.ID,
+		Name: d.Name,
+	}
+	if department.Update() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func DeleteDepartment(c *gin.Context) {
+	idString := c.Query("id")
+	department := model.Department{
+		ID: func() (id uint64) {
+			id, _ = strconv.ParseUint(idString, 10, 64)
+			return
+		}(),
+	}
+	if department.Delete() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func UpdateDoctorDepartment(c *gin.Context) {
+	d := struct {
+		ID           uint64 `json:"id"`
+		DepartmentID uint64 `json:"department_id"`
+	}{}
+	c.BindJSON(&d)
+	doctor := model.Doctor{
+		ID:           d.ID,
+		DepartmentID: d.DepartmentID,
+	}
+	if doctor.UpdateDepartment(d.DepartmentID) {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func DeleteDoctor(c *gin.Context) {
+	idString := c.Query("id")
+	doctor := model.Doctor{
+		ID: func() (id uint64) {
+			id, _ = strconv.ParseUint(idString, 10, 64)
+			return
+		}(),
+	}
+	if doctor.Delete() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func DeleteBed(c *gin.Context) {
+	idString := c.Query("id")
+	bed := model.Bed{
+		ID: func() (id uint64) {
+			id, _ = strconv.ParseUint(idString, 10, 64)
+			return
+		}(),
+	}
+	if bed.Delete() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func DeletePatient(c *gin.Context) {
+	idString := c.Query("id")
+	patient := model.Patient{
+		ID: func() (id uint64) {
+			id, _ = strconv.ParseUint(idString, 10, 64)
+			return
+		}(),
+	}
+	if patient.Delete() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func DoctorLetPatientOut(c *gin.Context) {
+	idString := c.Param("id")
+	patient := model.GetPatientByID(func() (id uint64) {
+		id, _ = strconv.ParseUint(idString, 10, 64)
+		return
+	}())
+	if patient.LetOut() {
+		ResponseOK(c)
+	} else {
+		ResponseServerError(c)
+	}
+}
+
+func UpdatePatient(c *gin.Context) {
+	p := struct {
+		ID     uint64       `json:"id"`
+		Name   string       `json:"name"`
+		InTime utility.Time `json:"in_time"`
+		State  string       `json:"state"`
+		Gender string       `json:"state"`
+		Phone  string       `json:"phone"`
+	}{}
+	c.BindJSON(&p)
+	patient := model.GetPatientByID(p.ID)
+	patient.Name = p.Name
+	patient.InTime = p.InTime
+	patient.State = p.State
+	patient.Gender = p.Gender
+	patient.Phone = p.Phone
+	if patient.Update() {
 		ResponseOK(c)
 	} else {
 		ResponseServerError(c)

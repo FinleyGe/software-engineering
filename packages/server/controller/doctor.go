@@ -51,17 +51,19 @@ func AddPatient(c *gin.Context) {
 		Birth    utility.Time `json:"birth"`
 	}{}
 	c.BindJSON(&p)
+	doctor := model.GetDoctorByID(p.DoctorID)
 	patient := model.Patient{
-		Name:     p.Name,
-		DoctorID: p.DoctorID,
-		BedID:    p.BedID,
-		IsOut:    false,
-		State:    p.State,
-		Gender:   p.Gender,
-		Phone:    p.Phone,
-		Birth:    p.Birth,
-		InTime:   p.InTime,
-		Password: utility.GetDefaultPassword(),
+		Name:         p.Name,
+		DoctorID:     p.DoctorID,
+		BedID:        p.BedID,
+		IsOut:        false,
+		State:        p.State,
+		Gender:       p.Gender,
+		Phone:        p.Phone,
+		Birth:        p.Birth,
+		InTime:       p.InTime,
+		Password:     utility.GetDefaultPassword(),
+		DepartmentID: doctor.DepartmentID,
 	}
 	if !patient.Add() {
 		ResponseServerError(c)
@@ -73,9 +75,71 @@ func AddPatient(c *gin.Context) {
 	ResponseOK(c)
 }
 
+type apiDoctor struct {
+	ID   uint64 `json:"id"`
+	Name string `json:"name"`
+}
+type apiBed struct {
+	ID     uint64 `json:"id"`
+	Number string `json:"number"`
+}
+
+type apiPatient struct {
+	ID      uint64       `json:"id"`
+	Name    string       `json:"name"`
+	InTime  utility.Time `json:"in_time"`
+	OutTime utility.Time `json:"out_time"`
+	State   string       `json:"state"`
+	Doctor  apiDoctor    `json:"doctor"`
+	Bed     apiBed       `json:"bed"`
+}
+
+type apiPatientDetail struct {
+	ID      uint64       `json:"id"`
+	Name    string       `json:"name"`
+	InTime  utility.Time `json:"in_time"`
+	OutTime utility.Time `json:"out_time"`
+	State   string       `json:"state"`
+	Gender  string       `json:"gender"`
+	Birth   utility.Time `json:"birth"`
+	Phone   string       `json:"phone"`
+	Doctor  apiDoctor    `json:"doctor"`
+	Bed     apiBed       `json:"bed"`
+}
+
 func ShowPatients(c *gin.Context) {
 	patients := model.GetAllPatient()
-	ResponseOKWithData(c, patients)
+	var apiPatients []apiPatient
+	for _, patient := range patients {
+		apiPatient := apiPatient{
+			ID:     patient.ID,
+			Name:   patient.Name,
+			InTime: patient.InTime,
+			OutTime: func() utility.Time {
+				if patient.IsOut {
+					return patient.OutTime
+				}
+				return utility.Time{}
+			}(),
+			State: patient.State,
+			Doctor: func() apiDoctor {
+				doctor := model.GetDoctorByID(patient.DoctorID)
+				return apiDoctor{
+					ID:   doctor.ID,
+					Name: doctor.Name,
+				}
+			}(),
+			Bed: func() apiBed {
+				bed := model.GetBedByID(patient.BedID)
+				return apiBed{
+					ID:     bed.ID,
+					Number: bed.BedNumber,
+				}
+			}(),
+		}
+		apiPatients = append(apiPatients, apiPatient)
+	}
+	ResponseOKWithData(c, apiPatients)
 }
 
 func ShowPatient(c *gin.Context) {
@@ -90,7 +154,36 @@ func ShowPatient(c *gin.Context) {
 			return i
 		}(),
 	)
-	ResponseOKWithData(c, patient)
+	var apiPatient apiPatientDetail
+	apiPatient.ID = patient.ID
+	apiPatient.Name = patient.Name
+	apiPatient.InTime = patient.InTime
+	apiPatient.OutTime = func() utility.Time {
+		if patient.IsOut {
+			return patient.OutTime
+		}
+		return utility.Time{}
+	}()
+	apiPatient.State = patient.State
+	apiPatient.Doctor = func() apiDoctor {
+		doctor := model.GetDoctorByID(patient.DoctorID)
+		return apiDoctor{
+			ID:   doctor.ID,
+			Name: doctor.Name,
+		}
+	}()
+	apiPatient.Bed = func() apiBed {
+		bed := model.GetBedByID(patient.BedID)
+		return apiBed{
+			ID:     bed.ID,
+			Number: bed.BedNumber,
+		}
+	}()
+	apiPatient.Birth = patient.Birth
+	apiPatient.Phone = patient.Phone
+	apiPatient.Gender = patient.Gender
+	ResponseOKWithData(c, apiPatient)
+	// ResponseOKWithData(c, patient)
 }
 
 func ShowVitalSigns(c *gin.Context) {
@@ -141,5 +234,84 @@ func ShowVitalSignsWithTimeFilter(c *gin.Context) {
 		return
 	}
 	ResponseOKWithData(c, vitalSigns)
+}
 
+func DoctorAddPatient(c *gin.Context) {
+
+	patient := struct {
+		Name   string       `json:"name"`
+		State  string       `json:"state"`
+		Gender string       `json:"gender"`
+		Bitrh  utility.Time `json:"birth"`
+		Phone  string       `json:"phone"`
+		BedID  uint64       `json:"bed_id"`
+	}{}
+
+	if err := c.BindJSON(&patient); err != nil {
+		ResponseBadRequest(c)
+		return
+	}
+	doctorID := c.MustGet("id").(uint64)
+	doctor := model.GetDoctorByID(doctorID)
+	p := model.Patient{
+		Name:         patient.Name,
+		State:        patient.State,
+		Phone:        patient.Phone,
+		Gender:       patient.Gender,
+		Birth:        patient.Bitrh,
+		InTime:       utility.TimeNow(),
+		BedID:        patient.BedID,
+		DoctorID:     doctorID,
+		Password:     utility.GetDefaultPassword(),
+		DepartmentID: doctor.DepartmentID,
+	}
+	if p.Add() {
+		bed := model.GetBedByID(patient.BedID)
+		bed.Occupied = true
+		bed.Update()
+		ResponseOK(c)
+	} else {
+		ResponseBadRequest(c)
+	}
+}
+
+type apiDoctorPatient struct {
+	ID      uint64       `json:"id"`
+	Name    string       `json:"name"`
+	InTime  utility.Time `json:"in_time"`
+	OutTime utility.Time `json:"out_time"`
+	State   string       `json:"state"`
+	Bed     apiBed       `json:"bed"`
+}
+
+func ShowDoctorPatients(c *gin.Context) {
+	id := func() uint64 {
+		id, _ := c.Get("id")
+		return id.(uint64)
+	}()
+	patients := model.GetPatientsByDoctorID(id)
+	apiPatients := []apiDoctorPatient{}
+	for _, patient := range patients {
+		apiPatient := apiDoctorPatient{
+			ID:     patient.ID,
+			Name:   patient.Name,
+			InTime: patient.InTime,
+			OutTime: func() utility.Time {
+				if patient.IsOut {
+					return patient.OutTime
+				}
+				return utility.Time{}
+			}(),
+			State: patient.State,
+			Bed: func() apiBed {
+				bed := model.GetBedByID(patient.BedID)
+				return apiBed{
+					ID:     bed.ID,
+					Number: bed.BedNumber,
+				}
+			}(),
+		}
+		apiPatients = append(apiPatients, apiPatient)
+	}
+	ResponseOKWithData(c, apiPatients)
 }
