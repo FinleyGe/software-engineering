@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { AdminAddBed, AdminDeleteBed,AdminGetBeds,  } from "@/api/admin";
-import {NButton, NDataTable, NDivider, NInput, NSpace, useMessage} from "naive-ui";
+import { AdminAddBed, AdminDeleteBed,AdminGetBeds, AdminGetDepartments,  } from "@/api/admin";
+import {NButton,NSelect, NDataTable, NDivider, NInput, NSpace, useMessage} from "naive-ui";
 import {h, onMounted, ref} from "vue";
-import type { Bed } from "@/type";
-import type {DataTableColumns} from "naive-ui";
+import type { Bed, Department } from "@/type";
+import type {DataTableColumns, SelectOption} from "naive-ui";
 
 const pagetitle = "床位管理";
 const beds = ref<Bed[]>([]);
 const bedName = ref<string>("");
+const departmentID = ref<number | null>();
+const departments = ref<Department[]>([]);
 const message = useMessage();
-
+const options = ref<SelectOption[]>([]);
 const cellEdit = ref<Array<boolean>>([]);
 
 function handleRefresh  ()  {
@@ -18,6 +20,16 @@ function handleRefresh  ()  {
   });
   cellEdit.value = new Array(beds.value.length);
   cellEdit.value.map(() => {false;});
+
+  AdminGetDepartments().then((res) => {
+    departments.value = res.data.data;
+    options.value = departments.value.map((department) => {
+      return {
+        label: department.name,
+        value: department.id,
+      };
+    });
+  });
 };
 
 function handleDelete(index: number) {
@@ -36,7 +48,10 @@ const handleAddBed = () => {
     message.error("床位名称不能为空");
     return;
   }
-  AdminAddBed(bedName.value).then((res) => {
+  AdminAddBed(
+    bedName.value,
+    departmentID.value!
+  ).then((res) => {
     if (res.data.msg === "OK") {
       handleRefresh();
       message.success("添加成功");
@@ -66,6 +81,27 @@ const columns = <DataTableColumns<Bed>>[
         },
         {
           default: () => (row.occupied ? "是" : "否"),
+        }
+      );
+    },
+  },{
+    "title": "科室",
+    "key": "department_id",
+    render(row) {
+      return h(
+        "span",
+        {
+          style: {
+            color: row.occupied ? "red" : "green",
+          },
+        },
+        {
+          default: () => {
+            const department = departments.value.find((department) => {
+              return department.id === row.department_id;
+            });
+            return department ? department.name : "未知";
+          },
         }
       );
     },
@@ -119,10 +155,18 @@ const data = beds;
     </header>
     <main>
       <n-space>
-        <n-input
-          v-model:value="bedName"
-          placeholder="床位名称"
-        />
+        <n-space vertical>
+          <n-input
+            v-model:value="bedName"
+            placeholder="床位名称"
+          />
+          <n-select
+            v-model:value="departmentID"
+            :options="options"
+            placeholder="科室"
+            clearable
+          />
+        </n-space>
         <n-button
           type="primary"
           @click="handleAddBed"

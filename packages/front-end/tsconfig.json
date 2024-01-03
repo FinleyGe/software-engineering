@@ -52,6 +52,9 @@
       ],
       "@util/*": [
         "src/util/*"
+      ],
+      "@doctor/*": [
+        "src/views/doctor/*"
       ]
     }
   },

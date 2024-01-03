@@ -3,7 +3,12 @@ import {
   AdminGetAllPatients,
   AdminDeletePatient,
 } from "@/api/admin";
+
+import {
+  DoctorGetPatients,
+} from "@/api/doctor";
 import { Department, Patient } from "@/type";
+import { useUserStore } from "@/store";
 import {
   NButton,
   NDataTable,
@@ -12,7 +17,6 @@ import {
   NSelect,
   NSpace,
   useMessage,
-  NButtonGroup,
 } from "naive-ui";
 import {h, onMounted, ref} from "vue";
 import { useRouter } from "vue-router";
@@ -24,16 +28,25 @@ const patientName = ref<string>("");
 const patientDepartment = ref<Department>({id: 0, name: ""});
 const message = useMessage();
 const DepartmentList = ref<SelectOption[]>([]);
-
 const cellEdit = ref<Array<boolean>>([]);
-const isAdd = ref<boolean>(false);
+const userStore = useUserStore();
 
-function handleRefresh  ()  {
-  AdminGetAllPatients().then((res) => {
-    patients.value = res.data.data;
-  });
-  cellEdit.value = new Array(patients.value.length);
-  cellEdit.value.map(() => {false;});
+function handleRefresh (){
+  if (userStore.role === "admin") {
+    AdminGetAllPatients().then((res) => {
+      patients.value = res.data.data;
+    });
+    cellEdit.value = new Array(patients.value.length);
+    cellEdit.value.map(() => {false;});
+    return;
+  } else if (userStore.role === "doctor") {
+    DoctorGetPatients().then((res) => {
+      patients.value = res.data.data;
+    });
+    cellEdit.value = new Array(patients.value.length);
+    cellEdit.value.map(() => {false;});
+    return;
+  }
 };
 
 function handleAddPatient  () {
@@ -50,21 +63,12 @@ function handleAddPatient  () {
   //   }
   // });
 };
-const router = useRouter();
-function handleCheck(index: number) {
-  router.push({
-    path: "/admin/patient/" + patients.value[index].id,
-  });
-};
-
-// function handleEdit(index: number, department_id: number) {
-//   if (department_id === patients.value[index].department_id)  {
-//     message.info("未做修改");
-//     return;
-//   }
-//   AdminUpdatePatient(
-//     patients.value[index].id,
-//     department_id,
+//
+// function handleEditaName (index: number, name: string) { AdminUpdatePatient(
+//     index,
+//     name,
+//     patients.value[index].in_time,
+//     patients.value[index].state,
 //   ).then(
 //     (res) => {
 //       if(res.data.msg === "OK"){
@@ -77,7 +81,14 @@ function handleCheck(index: number) {
 //       message.error(err);
 //     }
 //   );
-// }
+// };
+
+const router = useRouter();
+function handleCheck(index: number) {
+  router.push({
+    path: "/admin/patient/" + patients.value[index].id,
+  });
+};
 
 function handleDelete(index: number) {
   AdminDeletePatient(patients.value[index].id).then((res) => {
@@ -111,17 +122,7 @@ const columns = <DataTableColumns<Patient>>[
     key: "action",
     render: (_, index: number) => {
       return h(
-        // NButton, {
-        //   type: "error",
-        //   onClick: () => {
-        //     handleDelete(index);
-        //   },
-        // } , {
-        //   default: () => "删除",
-        //}
-        NButtonGroup, {
-          size: "small",
-        }, {
+        NSpace, {}, {
           default: () => [
             h(
               NButton, {
@@ -174,35 +175,10 @@ const data = patients;
           >
             刷新
           </n-button>
-          <n-button
-            type="info"
-            @click="isAdd = !isAdd"
-          >
-            添加患者
-          </n-button>
         </n-space>
       </n-space>
     </header>
     <main>
-      <n-space v-if="isAdd">
-        <n-space vertical>
-          <n-input
-            v-model:value="patientName"
-            placeholder="患者名称"
-          />
-          <n-select
-            v-model:value="patientDepartment.id"
-            :options="DepartmentList"
-            placeholder="所属科室"
-          />
-        </n-space>
-        <n-button
-          type="success"
-          @click="handleAddPatient"
-        >
-          添加
-        </n-button>
-      </n-space>
       <n-divider />
       <n-data-table
         :columns="columns"

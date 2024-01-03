@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {AdminAddDoctor, AdminDeleteDoctor,AdminGetAllDoctors,AdminGetDepartments, AdminUpdateDoctor } from "@/api/admin";
-import type {DataTableColumns, SelectOption} from "naive-ui";
 import { Department, Doctor } from "@/type";
+import SelectableCell from "@components/SelectableCell.vue";
 import {NButton, NDataTable, NDivider, NInput, NSelect, NSpace, useMessage} from "naive-ui";
 import {h, onMounted, ref} from "vue";
-import SelectableCell from "@components/SelectableCell.vue";
+import type {DataTableColumns, SelectOption} from "naive-ui";
 
 const pagetitle = "医生管理";
 const doctors = ref<Doctor[]>([]);

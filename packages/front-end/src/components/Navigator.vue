@@ -17,12 +17,7 @@ const props = defineProps<{
       type="primary"
       @click="$router.push(item.path)"
     >
-      <!-- <router-link -->
-      <!--   :to="item.path" -->
-      <!--   style="text-decoration: none;" -->
-      <!-- > -->
       {{ item.name }}
-      <!-- </router-link> -->
     </n-button>
   </n-space>
 </template>

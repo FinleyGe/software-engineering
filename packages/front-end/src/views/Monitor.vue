@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store";
 import { AdminGetVitalSigns } from "@/api/admin";
+import { PatientGetVitalSigns } from "@/api/patient";
 import { dateFormat } from "@/util/date";
 import { useMessage, NButton, NSpace, NDatePicker, NDataTable } from "naive-ui";
-// import { useRouter } from "vue-router";
 import { ref, onBeforeMount, computed } from "vue";
 import  VChart  from "vue-echarts";
 import { use } from "echarts/core";
-import { LinesChart,LineChart } from "echarts/charts";
+import { LineChart } from "echarts/charts";
 import { GridComponent ,
   TitleComponent,
   TooltipComponent,
@@ -28,7 +28,6 @@ use([
   TitleComponent,
   TooltipComponent,
   LegendComponent,
-  // LinesChart,
   LineChart,
   CanvasRenderer,
   GridComponent
@@ -160,10 +159,29 @@ function handleRefresh() {
     });
     break;
   case "doctor":
-    break;
+    DoctorGetVitalSigns(
+      dateFormat(new Date(timeRange.value[0])),
+      dateFormat(new Date(timeRange.value[1]))
+    ).then((res) => {
+      if (res.data.data.length === 0) {
+        message.error("暂无数据");
+        return;
+      }
+      vitalsigns.value = res.data.data;
+      setSeriesData();
+    });
   case "patient":
-    // router.push({ path: "/patient"
-    // });
+    PatientGetVitalSigns(
+      dateFormat(new Date(timeRange.value[0])),
+      dateFormat(new Date(timeRange.value[1]))
+    ).then((res) => {
+      if (res.data.data.length === 0) {
+        message.error("暂无数据");
+        return;
+      }
+      vitalsigns.value = res.data.data;
+      setSeriesData();
+    });
     break;
   }
 }
@@ -196,7 +214,6 @@ onBeforeMount(() => {
 
 </script>
 <template>
-  {{ option }}
   <div>
     <n-space>
       <n-button
@@ -205,12 +222,13 @@ onBeforeMount(() => {
       >
         刷新
       </n-button>
+      <n-date-picker
+        v-model:value="timeRange"
+        type="datetimerange"
+        placeholder="选择结束时间"
+        clearable
+      />
     </n-space>
-    <n-date-picker
-      v-model:value="timeRange"
-      type="datetimerange"
-      placeholder="选择结束时间"
-    />
     <n-data-table
       :columns="columns"
       :data="vitalsigns"
@@ -227,5 +245,10 @@ onBeforeMount(() => {
 <style scoped lang="scss">
 .vchart {
   height: 500px;
+  background-color: #fff;
+  // min-height: 500px;
+  // height: fit-content;
+  // width: 100vw;
+  // background-color: #fff;
 }
 </style>

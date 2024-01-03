@@ -66,10 +66,12 @@ export function AdminUpdateDoctor(
 }
 
 export function AdminAddBed(
-  number : string
+  number: string,
+  department_id: number,
 ){
   return api.post<Res<null>>("/admin/bed",{
-    number
+    number,
+    department_id,
   });
 }
 
@@ -116,7 +118,7 @@ export function AdminGetVitalSigns(
   time_start:string | null,
   time_utill:string | null,
 ) {
-  console.log(time_start,time_utill);
+  // console.log(time_start,time_utill);
   return api.get<Res<VitalSign[]>>(
     "/admin/vital_signs/"+bed_id, {
       params: {
@@ -125,4 +127,22 @@ export function AdminGetVitalSigns(
       }
     }
   );
+}
+
+export function AdminUpdatePatient(
+  id:number,
+  name:string,
+  in_time:string,
+  state:string,
+  gender:string,
+  phone:string,
+) {
+  return api.put<Res<null>>("/admin/patient",{
+    id,
+    name,
+    in_time,
+    state,
+    gender,
+    phone,
+  });
 }

@@ -7,6 +7,11 @@ export const useUserStore = defineStore(
   () => {
     const isLogin = ref<boolean>(false);
     const role = ref<Role>("guest");
-    return { isLogin, role };
+    const id = ref<number>(0);
+    function logout() {
+      isLogin.value = false;
+      role.value = "guest";
+    }
+    return { isLogin, role, logout, id};
   },
 );

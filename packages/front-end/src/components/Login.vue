@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {NButton, NInput,NSpace} from "naive-ui";
 import { Login } from "@/api";
 import { Role } from "@/type/user";
-import { ref } from "vue";
-import {useMessage} from "naive-ui";
 import { useUserStore } from "@/store/user";
+import {NButton, NInput,NSpace,useMessage} from "naive-ui";
+import { ref } from "vue";
+
 const message = useMessage();
 const userStore = useUserStore();
 const emits = defineEmits<{
@@ -26,7 +26,9 @@ function handleLogin(){
       message.success("登录成功");
       userStore.isLogin = true;
       userStore.role = role.value;
+      userStore.id = Number(id.value);
       localStorage.setItem("role", role.value);
+      localStorage.setItem("id", id.value);
     }
     emits("close");
   }).catch((err) => {
