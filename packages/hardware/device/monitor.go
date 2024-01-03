@@ -37,7 +37,7 @@ func (m *Monitor) Run() {
 	}
 	defer stream.CloseSend()
 	for {
-		var heartRate uint64 = rand.Uint64()%200 + 60
+		var heartRate uint64 = rand.Uint64()%150 + 60
 		var temperature float64 = rand.Float64()*4 + 35
 		var bloodPressure string = fmt.Sprintf("%v/%v", rand.Uint64()%100+60, rand.Uint64()%100+60)
 		var bloodOxygen float64 = rand.Float64()*2 + 96

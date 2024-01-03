@@ -18,13 +18,13 @@ func ReadInCommand(prompt string) string {
 
 func PrintHelp() {
 	fmt.Println("help Info")
-	fmt.Println("new monitor")
-	fmt.Println("new bell")
-	fmt.Println("list devices")
-	fmt.Println("run monitor")
-	fmt.Println("run bell")
-	fmt.Println("exit")
-	fmt.Println("help")
+	fmt.Println("new monitor(nm)")
+	fmt.Println("new bell(nb)")
+	fmt.Println("list devices(l)")
+	fmt.Println("run monitor(rm)")
+	fmt.Println("run bell(rb)")
+	fmt.Println("exit(q)")
+	fmt.Println("help(?)")
 }
 
 var Monitors sync.Map
